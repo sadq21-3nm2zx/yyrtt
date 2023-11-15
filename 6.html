@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在载入....</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8"
+        src="https://mdcu.oss-cn-hangzhou.aliyuncs.com/static/aliplayer-min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.13.2/skins/default/aliplayer-min.css" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/mobile/need/layer.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F8F8;
+        }
+
+        .header {
+            position: relative;
+            display: none;
+            width: 400px;
+            height: 900px;
+            border-radius: 14px;
+            margin: 30px auto;
+            padding: 20px 40px;
+            display: block;
+            box-sizing: border-box;
+            background: #fff;
+            box-shadow: 0 0 10px 1px #ccc;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 50px;
+            font-size: 24px;
+        }
+
+        .text {
+            /* margin-top: 50px; */
+            color: #aaa;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            /* margin-top: 40px; */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label>span {
+            font-size: 18px;
+            font-weight: 400;
+            color: #030303;
+            margin-bottom: 5px;
+        }
+
+        label>input {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 0 20px;
+            background-color: #FFFFFF;
+            box-sizing: border-box;
+            outline: none;
+            width: 100%;
+            height: 40px;
+            font-size: 18px;
+        }
+
+        .del {
+            display: flex;
+            justify-content: space-around;
+            width: 325px;
+        }
+
+
+        .pwsd {
+            display: flex;
+            margin-top: 45px;
+        }
+
+        .pwsd>input {
+            width: 24px;
+            height: 24px;
+        }
+
+        .pwsd>span {
+            font-size: 18px;
+            color: #fff;
+            margin-left: 20px;
+        }
+
+        .login {
+            width: 100%;
+            height: 40px;
+            background: #007AFC;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /*  */
+        .modal-content {
+            background: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            height: 20%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .open {
+            margin: 50px;
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* 关闭特效 */
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        .group {
+            width: 100%;
+            text-align: center;
+        }
+
+        .group a {
+            margin: 0px 20px;
+        }
+
+        .videoButton {
+            width: 70%;
+            height: 50px;
+            font-size: 2vh;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 192, 203);
+            border-radius: 9px;
+            bottom: 0px;
+            font-weight: bold;
+            outline: none;
+            font-family: KaiTi;
+            font-size: 17px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .videoBox {
+            display: none;
+        }
+
+        .code p{
+            font-size: 14px;
+        }
+
+        .code img{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="handle">
+        <!-- <button id="open"> 打开弹窗 </button> -->
+        <div id="myModal" class="header">
+            <span class="close">
+                &times;
+            </span>
+            <div class="title">
+                <h2>输入密码解锁全部密码作品<br />密码每天更新一次~</h2>
+                <p class="text" style="margin: 0;">此网址的访问受到限制，请输入密码进行查看</p>
+            </div>
+            <br>
+            <label for="password">
+                <p align="center" style="margin-top: 0;"><b><a style="color: red;" name="qwe" id="dwz" target="_blank" href="https://alik.oss-cn-hangzhou.aliyuncs.com/%E4%BB%8A%E6%97%A5%E8%B5%84%E6%BA%90.mp4">点击查看[获取密码]视频教程</a></b></p>
+                <input type="password" id="pwd" placeholder="请输入访问密码" style="text-align: center;">
+            </label>
+            <br>
+            <div class="del">
+                <button class="login" onclick="login()">解锁</button>
+            </div>
+            <div class="code">
+                <h1 align="center" style=" font-size: 25px; color:#152c5b; font-weight:bold; margin-bottom: 20px;">
+                    获取密码方法</h1>
+                <p align="center" class="tips"><b>长按图片保存用VX扫一扫二维码<br>点击右下角详情，观看广告后自动复制密码<br>——————————————————</b></p>
+                <img id="tp" style="width: 200px;height: 200px;" src="https://p2.qpic.cn/qqgameedu/0/126a06ad94773cce71320b03af90dee9/0">
+                <p align="center"><b>——————————————————<br>感谢🙏各位老铁的信任<br>你们的支持就是我们更新的动力</b></p>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="videoBox" class="videoBox">
+        <div class="prism-player" id="player-con"></div>
+        <div class="group">
+            <a id="group_href" href="#">
+                <button id="group_title" class="videoButton"></button>
+            </a>
+        </div>
+    </div>
+</body>
+
+<script>
+    const pass = '2266'
+    let pwd = document.getElementById('pwd');
+    let videoBox = document.getElementById('videoBox');
+    let handle = document.getElementById('handle');
+    function login() {
+        if (pwd.value == pass) {
+            alert('解锁成功');
+            // location.href = './video.html';
+            handle.style.display = "none";
+            videoBox.style.display = "block";
+        } else {
+            alert('密码错误')
+        }
+    }
+
+    // 获取节点
+    let modal = document.getElementById('myModal');
+    // let btn = document.getElementById("open");
+    let span = document.querySelector('.close');
+
+    //创建点击事件
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    // 在用户点击其他地方时，关闭弹窗
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    function unzip(data) {
+        const key = CryptoJS.enc.Utf8.parse("12348888");
+        const iv = CryptoJS.enc.Utf8.parse("");
+        const encryptedHexStr = CryptoJS.enc.Hex.parse(data);
+
+        const decrypt = CryptoJS.AES.decrypt({
+            ciphertext: encryptedHexStr
+        }, key, {
+            iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        const decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+        return decryptedStr.toString();
+    }
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) { return pair[1]; }
+        }
+        return (false);
+    }
+
+    window.onload = function () {
+        var playTimer = null;
+        var key = getQueryVariable('key');
+        var data = unzip(key);
+        data = data.split("|");
+        console.log(data)
+        var screen_height = window.screen.height * 0.7;
+        var player = new Aliplayer({
+            "id": "player-con",
+            "source": data[0],
+            "width": "100%",
+            "height": screen_height + "px",
+            "autoplay": false,
+            "isLive": false,
+            "rePlay": false,
+            "playsinline": true,
+            "preload": true,
+            "controlBarVisibility": "hover",
+            "useH5Prism": true
+        }, function (player) {
+
+        }
+        );
+        document.title = '   ';
+        document.getElementById("group_title").innerHTML = '更 多 资 源 点 我 加 入';
+        document.getElementById("group_href").href = 'https://mp.qzone.qq.com/u/2901469088';
+        setInterval(function (player, data) {
+            var status = player.getStatus();
+            if (status == "ended") {
+                console.log("播放完毕");
+                // window.location.href = data[3];
+            } else if (status == 'playing' && data[4] != null && data[4] != undefined && !isNaN(data[4])) {
+                if (playTimer == null) {
+                    playTimer = setTimeout(function () {
+                        layer.confirm(data[5], {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            // window.location.href = data[3];
+                        }, function () {
+
+                        });
+                    }, data[4] * 1000, data, layer)
+                }
+            }
+        }, 1000, player, data)
+    }
+</script>
+
+</html>
